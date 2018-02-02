@@ -3,6 +3,7 @@ import http.server
 import argparse
 import sys
 
+# ヘッダとボディを表示するHTTPハンドラ
 class HTTPHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         print(self.headers)
@@ -20,9 +21,11 @@ class HTTPHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write("OK\n".encode("utf-8"))
 
+# 引数を元にサーバを起動させるメソッド
 def main(server_class=http.server.HTTPServer, handler_class=HTTPHandler, 
          port=8000, bind=""):
-    # server_class(("",port),handler_class).serve_forever()
+
+    # サーバを動作させるインターフェースとポート
     server_address = (bind, port)
 
     with server_class(server_address, handler_class) as httpd:
