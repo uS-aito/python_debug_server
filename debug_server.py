@@ -14,6 +14,7 @@ class HTTPHandler(http.server.BaseHTTPRequestHandler):
 
     def do_POST(self):
         content_len = int(self.headers.get('content-length', 0))
+        print(self.headers)
         post_body = self.rfile.read(content_len)
         print(post_body)
         self.send_response(200)
