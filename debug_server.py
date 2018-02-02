@@ -12,10 +12,13 @@ class HTTPHandler(http.server.BaseHTTPRequestHandler):
         self.wfile.write("OK\n".encode("utf-8"))
 
     def do_POST(self):
-        content_len = int(self.headers.getheader('content-length', 0))
+        content_len = int(self.headers.get('content-length', 0))
         post_body = self.rfile.read(content_len)
         print(post_body)
         self.send_response(200)
+        self.send_header("Content-type","text/plain")
+        self.end_headers()
+        self.wfile.write("OK\n".encode("utf-8"))
 
 def main(server_class=http.server.HTTPServer, handler_class=HTTPHandler, 
          port=8000, bind=""):
